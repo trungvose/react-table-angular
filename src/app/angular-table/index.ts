@@ -17,6 +17,8 @@ export function createAngularTable<TData extends RowData>(
   };
 
   const table = createTable(resolvedOptions);
+  // Always set state to initialState
+  // https://github.com/TanStack/table/issues/4358
   const { initialState: state } = table;
   table.setOptions((prev) => ({
     ...prev,
@@ -24,9 +26,6 @@ export function createAngularTable<TData extends RowData>(
     state: {
       ...state,
       ...options.state,
-    },
-    onStateChange: (updater) => {
-      options.onStateChange?.(updater);
     },
   }));
 
