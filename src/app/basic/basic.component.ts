@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import {
-  createColumnHelper,
-  createTable,
-  getCoreRowModel,
-} from '@tanstack/table-core';
+import { createColumnHelper, getCoreRowModel } from '@tanstack/table-core';
+import { createAngularTable } from '../angular-table';
+import { flexRender } from '../angular-table/flex-render';
 
 type Person = {
   firstName: string;
@@ -74,37 +72,21 @@ const columns = [
 ];
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
+  selector: 'app-basic',
+  templateUrl: './basic.component.html',
+  styleUrls: ['./basic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableComponent implements OnInit {
-table = createTable({
-  data,
-  columns,
-  state: {},
-  onStateChange: () => {},
-  getCoreRowModel: getCoreRowModel(),
-  renderFallbackValue: null,
-});
-  
+export class BasicComponent implements OnInit {
+  table = createAngularTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
 
-  constructor() {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    // this.table.setState(prev => ({
-    //   ...prev,
-    //   ...this.table.initialState
-    // }))
-    this.table.setOptions(prev => ({
-      ...prev,
-      state: {
-        ...prev.state,
-        ...this.table.initialState
-      }
-    }))
-    console.log('initial table state', this.table.initialState);
-    console.log('table state', this.table.getState());
+  flexRender<TProps extends {}>(Comp: any, props: TProps) {
+    return flexRender(Comp, props);
   }
 }

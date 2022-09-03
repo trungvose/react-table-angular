@@ -1,0 +1,33 @@
+<table>
+  <thead>
+    <tr *ngFor="let headerGroup of table.getHeaderGroups()">
+      <th
+        *ngFor="let header of headerGroup.headers"
+        [attr.colSpan]="header.colSpan"
+      >
+        <ng-container *ngIf="!header.isPlaceholder">
+          {{ flexRender(header.column.columnDef.header, header.getContext()) }}
+        </ng-container>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of table.getRowModel().rows">
+      <td *ngFor="let cell of row.getVisibleCells()">
+        {{ flexRender(cell.column.columnDef.cell, cell.getContext()) }}
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr *ngFor="let footerGroup of table.getFooterGroups()">
+      <th
+        *ngFor="let header of footerGroup.headers"
+        [attr.colSpan]="header.colSpan"
+      >
+        <ng-container *ngIf="!header.isPlaceholder">
+          {{ flexRender(header.column.columnDef.footer, header.getContext()) }}
+        </ng-container>
+      </th>
+    </tr>
+  </tfoot>
+</table>

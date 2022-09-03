@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TableComponent } from './table/table.component';
+import { BasicComponent } from './basic/basic.component';
+import { ColumnGroupsComponent } from './column-groups/column-groups.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent
+    BasicComponent,
+    ColumnGroupsComponent
   ],
   imports: [
     BrowserModule,
