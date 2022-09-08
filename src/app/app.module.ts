@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BasicComponent } from './basic/basic.component';
 import { ColumnGroupsComponent } from './column-groups/column-groups.component';
+import { ColumnOrderingComponent } from './column-ordering/column-ordering.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BasicComponent,
-    ColumnGroupsComponent
+    ColumnGroupsComponent,
+    ColumnOrderingComponent
   ],
   imports: [
     BrowserModule,

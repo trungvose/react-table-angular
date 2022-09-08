@@ -1,0 +1,71 @@
+<div class="p-2">
+  <div class="inline-block border border-black shadow rounded">
+    <div class="px-1 border-b border-black">
+      <label>
+        <input
+          type="checkbox"
+          [checked]="table.getIsAllColumnsVisible()"
+          (change)="toggleAllColumnsVisibility()"
+        />
+        Toggle All
+      </label>
+    </div>
+    <div *ngFor="let column of table.getAllLeafColumns()" class="px-1">
+      <label>
+        <input
+          type="checkbox"
+          [checked]="column.getIsVisible()"
+          (change)="toggleColumnVisibility(column)"
+        />
+        {{ column.id }}
+      </label>
+    </div>
+  </div>
+  <div class="h-4"></div>
+  <div class="flex flex-wrap gap-2">
+    <button (click)="rerender()" class="border p-1">Regenerate</button>
+    <button (click)="randomizeColumns()" class="border p-1">
+      Shuffle Columns
+    </button>
+  </div>
+  <div class="h-4"></div>
+  <table>
+    <thead>
+      <tr *ngFor="let headerGroup of table.getHeaderGroups()">
+        <th
+          *ngFor="let header of headerGroup.headers"
+          [attr.colSpan]="header.colSpan"
+        >
+          <ng-container *ngIf="!header.isPlaceholder">
+            {{
+              flexRender(header.column.columnDef.header, header.getContext())
+            }}
+          </ng-container>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of table.getRowModel().rows">
+        <td *ngFor="let cell of row.getVisibleCells()">
+          {{ flexRender(cell.column.columnDef.cell, cell.getContext()) }}
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr *ngFor="let footerGroup of table.getFooterGroups()">
+        <th
+          *ngFor="let header of footerGroup.headers"
+          [attr.colSpan]="header.colSpan"
+        >
+          <ng-container *ngIf="!header.isPlaceholder">
+            {{
+              flexRender(header.column.columnDef.footer, header.getContext())
+            }}
+          </ng-container>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+
+  <pre>{{ table.getState().columnOrder | json }} </pre>
+</div>
